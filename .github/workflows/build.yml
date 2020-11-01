@@ -24,13 +24,13 @@ jobs:
           git remote rm origin
           git remote add origin git@gitee.com:alexander-huang/coolapk-linux.git
           git clone
-      - name: Repo-add
+          cd coolapk-linux
+     - name: Repo-add
           id: repo-add
           uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre10
           with:
-            target: 'repo-add'
-            dictionary: 'pkgbuild'
-          cd coolapk-linux
+             target: 'repo-add'
+             dictionary: 'pkgbuild'
           mv ../pkgbuild/*/*.zst coolapk-linux/x86_64/
           #上面这行不行，mv和repo-add都要放在上面
           git add .
