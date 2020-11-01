@@ -14,8 +14,8 @@ jobs:
         with:
            target: 'pkgbuild'
            dictionary: 'pkgbuild'
-      - name: Upload package
-        id: upload
+      - name: Clone
+        id: git
         run: |
           git config --local user.email "w1301511091@hotmail.com"
           git config --local user.name "oganesson0512"
@@ -31,7 +31,9 @@ jobs:
         with:
           target: 'repo-add'
           dictionary: 'pkgbuild'
-         runs: |
+      - name: Upload package
+        id: upload
+        run: |
           mv ../pkgbuild/*/*.zst coolapk-linux/x86_64/
           #上面这行不行，mv和repo-add都要放在上面
           git add .
