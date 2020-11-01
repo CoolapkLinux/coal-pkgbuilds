@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Validate PKGBUILD
         id: validate-pkgbuild
-        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre10
+        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre12
         with:
            target: 'pkgbuild'
            dictionary: 'pkgbuild'
@@ -25,7 +25,7 @@ jobs:
           cd coolapk-linux
       - name: Repo-add
         id: repo-add
-        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre11
+        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre12
         with:
           target: 'repo-add'
           dictionary: 'pkgbuild'
