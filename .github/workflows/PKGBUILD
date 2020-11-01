@@ -1,0 +1,41 @@
+name: build
+#on:
+  schedule:
+    - cron:  '0 0 * * *'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Validate PKGBUILD
+        id: validate-pkgbuild
+        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre10
+        with:
+           target: 'pkgbuild'
+           dictionary: 'pkgbuild'
+      - name: Repo-add
+        id: repo-add
+        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre10
+        with:
+           target: 'repo-add'
+           dictionary: 'pkgbuild'
+      - name: Upload package
+        id: upload
+        run: |
+          git config --local user.email "w1301511091@hotmail.com"
+          git config --local user.name "oganesson0512"
+          
+          chown 700 ~/.ssh/id-rsa
+          git remote rm origin
+          git remote add origin git@gitee.com:alexander-huang/coolapk-linux.git
+          git clone
+          cd coolapk-linux
+          mv ../pkgbuild/*/*.zst coolapk-linux/x86_64/
+          #上面这行不行，mv和repo-add都要放在上面
+          git add .
+          git commit -m "Actions Build" -a
+ 
+
+          #git push
+   
