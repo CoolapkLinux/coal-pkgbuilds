@@ -1,0 +1,29 @@
+#PKGBUILD from TheInterestingSoul
+pkgver=2.1
+pkgrel=1
+pkgdesc="A script to create linux container on termux (with Chinese translation)"
+arch=("any")
+url="https://github.com/YadominJinta/atilo"
+license=('GPL')
+depends=('proot' 
+         'python' 
+         'python-beautifulsoup4'
+         'python-bs4' 
+         'python-certifi' 
+         'python-chardet' 
+         'python-idna' 
+         'python-prettytable' 
+         'python-requests' 
+         'python-soupsieve' 
+         'python-tqdm' 
+         'python-urllib3'
+         )
+conflicts=('atilo')
+provides=('atilo')
+source=("https://github.com/YadominJinta/atilo/archive/${pkgver}.zip")
+md5sums=('6fb822a1aca4457df0ac900c30e57f98')
+
+package() {
+	cd "$srcdir/$_origname-$pkgver/CN"
+	install -Dm755 atilo_cn "$pkgdir/usr/bin/atilo"
+}

@@ -1,0 +1,5 @@
+post_install() {
+	ls /home | xargs -i cp -r /usr/share/netease-music-tui/config/Settings.toml /home/{}/.config/netease-music-tui/Settings.toml
+	echo "info:Before running please edit ~/.config/netease-music-tui/Settings.toml,For more information please read https://github.com/betta-cyber/netease-music-tui/tree/v0.1.2#configuration."
+}
+

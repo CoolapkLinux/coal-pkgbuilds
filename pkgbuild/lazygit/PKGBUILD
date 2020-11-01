@@ -1,0 +1,18 @@
+
+pkgname=lazygit
+pkgver=0.23.6
+pkgrel=1
+pkgdesc="A simple terminal UI for git commands"
+arch=("x86_64")
+url="https://github.com/jesseduffield/lazygit"
+license=("MIT")
+depends=("git" "glibc")
+source=("https://github.com/jesseduffield/lazygit/releases/download/v${pkgver}/lazygit_${pkgver}_Linux_x86_64.tar.gz")
+md5sums=("SKIP")
+
+package () {
+cd $srcdir/
+mkdir -p $pkgdir/usr/bin $pkgdir/usr/share/licenses/lazygit
+cp -r lazygit $pkgdir/usr/bin
+cp -r LICENSE $pkgdir/usr/share/licenses/lazygit
+}

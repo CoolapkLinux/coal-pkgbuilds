@@ -1,0 +1,24 @@
+
+pkgname=purewriter
+_pkgname=purewriter
+pkgver=0.3.1
+pkgrel=1
+pkgdesc='PureWriter for Linux'
+arch=('x86_64')
+url='https://purewriter.liaronce.com/#/'
+license=('gplv3')
+provides=(purewriter=${pkgver})
+source=("https://github.com/LiarOnce/purewriter-desktop-liaronce-build/releases/download/${pkgver}/PureWriter-${pkgver}-linux_x86-64-nonJRE.zip")
+md5sums=("SKIP")
+
+package() {
+cd "${srcdir}/PureWriter"
+curl -o purewriter.png http://alexander-huang.gitee.io/coolapk-linux/source/purewriter/icon/purewriter.png
+curl -o purewriter.desktop http://alexander-huang.gitee.io/coolapk-linux/workfiles/purewriter/purewriter.desktop
+mkdir -p $pkgdir/opt/purewriter
+cp -r * $pkgdir/opt/purewriter 
+mkdir -p $pkgdir/usr/share/applications
+mv $pkgdir/opt/purewriter/purewriter.desktop $pkgdir/usr/share/applications
+mkdir -p "$pkgdir/usr/bin"
+ln -s ./purewriter/PureWriter $pkgdir/usr/bin/purewriter
+}

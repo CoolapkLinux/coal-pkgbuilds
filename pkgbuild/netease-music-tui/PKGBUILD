@@ -1,0 +1,21 @@
+pkgname=netease-music-tui
+_pkgname=netease-cloud-music-tui
+pkgver=0.1.2
+pkgrel=3
+pkgdesc='网易云音乐的命令行版'
+arch=('x86_64')
+url='https://hub.fastgit.org/betta-cyber/netease-music-tui/'
+license=('MIT')
+provides=(netease-music-tui=${pkgver})
+source=("https://github.com/betta-cyber/netease-music-tui/releases/download/v${pkgver}/netease-music-tui-linux.tar.gz")
+md5sums=('SKIP')
+
+package() {
+mkdir -p $pkgdir/usr/bin/ $pkgdir/usr/share/netease-music-tui/
+cd $srcdir
+curl -o Settings.toml https://alexander-huang.gitee.io/coolapk-linux/workfiles/netease-music-tui/other/config/Settings.toml
+cp -r ./ncmt $pkgdir/usr/bin/
+cp -r ./Settings.toml $pkgdir/usr/share/netease-music-tui/
+ln -s $pkgdir/usr/bin/ncmt $pkgdir/usr/bin/netease-music-tui
+} 
+

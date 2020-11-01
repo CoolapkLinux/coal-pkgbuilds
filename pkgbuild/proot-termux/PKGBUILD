@@ -1,0 +1,27 @@
+#PKGBUILD from TheInterestingSoul
+pkgname=proot-termux
+_pkgname=proot
+_commit="4f554c854df05e78ed6b4e9bc929276275d66ecc"
+_projname=proot-${_commit}
+pkgver=5.1.0
+pkgrel=0
+pkgdesc="A copy of the proot with patches applied to work better under Termux."
+arch=('any')
+url="https://github.com/termux/proot"
+license=('GPL')
+provides=('proot')
+conflicts=('proot')
+depends=('talloc')
+source=("https://github.com/termux/proot/archive/${_commit}.zip")
+
+build() {
+	cd "${srcdir}"/${_projname}/src
+	make -f GNUmakefile
+}
+
+package() {
+	cd "${srcdir}"/${_projname}
+	install -m755 -d "${pkgdir}"/usr/bin
+	install -m755 src/${_pkgname} "${pkgdir}"/usr/bin
+}
+md5sums=('8f844d381ce32c7ef80f9661c90264a1')
