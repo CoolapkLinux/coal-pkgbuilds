@@ -36,6 +36,7 @@ jobs:
           #上面这行不行，mv和repo-add都要放在上面
           git add .
           git commit -m "Actions Build" -a
+          git push
   rm-update:
     runs-on: ubuntu-latest
     needs: build
@@ -56,5 +57,5 @@ jobs:
       
  
 
-          #git push
+          git push
    
