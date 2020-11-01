@@ -56,6 +56,4 @@ jobs:
           branch: ${{ github.ref }}
       
  
-
-          git push
    
