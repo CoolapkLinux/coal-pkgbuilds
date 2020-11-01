@@ -21,7 +21,8 @@ jobs:
           git config --local user.name "oganesson0512"
           mkdir ~/.ssh
           echo '${{ secrets.PRIVATE_SSH_KEY }}'>> ~/.ssh/id-rsa
-          ch 700 ~/.ssh/id-rsa
+          chmod 700 ~/.ssh/id-rsa
+          ls -l ~/.ssh/
           git clone git@gitee.com:alexander-huang/coolapk-linux.git
           cd coolapk-linux
       - name: Repo-add
