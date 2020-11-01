@@ -1,7 +1,7 @@
 name: build
-#on:
-  schedule:
-    - cron:  '0 0 * * *'
+on:
+  #schedule:
+    #- cron:  '0 0 * * *'
   workflow_dispatch:
 jobs:
   build:
@@ -25,12 +25,13 @@ jobs:
           git remote add origin git@gitee.com:alexander-huang/coolapk-linux.git
           git clone
           cd coolapk-linux
-     - name: Repo-add
-          id: repo-add
-          uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre10
-          with:
-             target: 'repo-add'
-             dictionary: 'pkgbuild'
+      - name: Repo-add
+        id: repo-add
+        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre11
+        with:
+          target: 'repo-add'
+          dictionary: 'pkgbuild'
+         runs: |
           mv ../pkgbuild/*/*.zst coolapk-linux/x86_64/
           #上面这行不行，mv和repo-add都要放在上面
           git add .
