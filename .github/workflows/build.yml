@@ -40,6 +40,8 @@ jobs:
           cd coolapk-linux
           git add .
           git commit -m "Actions Build" -a
+          git config --local user.email "w1301511091@hotmail.com"
+          git config --local user.name "oganesson0512"
           git push https://alexander-huang:${{secrets.GITEE_TOKEN}}@gitee.com/alexander-huang/coolapk-linux.git
   rm-update:
     runs-on: ubuntu-latest
