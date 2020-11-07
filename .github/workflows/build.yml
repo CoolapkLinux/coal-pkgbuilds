@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Validate PKGBUILD
         id: validate-pkgbuild
-        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre13
+        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre16
         with:
            target: 'pkgbuild'
            dictionary: 'pkgbuild'
