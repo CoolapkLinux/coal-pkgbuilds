@@ -29,14 +29,13 @@ jobs:
            
       - name: Repo-add
         id: repo-add
-        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre12
+        uses: oganesson0512/arch-pkgbuild-builder@v1.16-cle-pre15
         with:
           target: 'repo-add'
           dictionary: 'pkgbuild'
       - name: Upload package
         id: upload
         run: |
-          mv ../pkgbuild/*/*.zst coolapk-linux/x86_64/
           #上面这行不行，mv和repo-add都要放在上面
           git add .
           git commit -m "Actions Build" -a
