@@ -38,6 +38,7 @@ jobs:
         run: |
           #上面这行不行，mv和repo-add都要放在上面
           cd coolapk-linux
+          bash ./fuck-gitee.sh
           git config --local user.email "2380087797@qq.com"
           git config --local user.name "Alexander-Huang"
           git add .
