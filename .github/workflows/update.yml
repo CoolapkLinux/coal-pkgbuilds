@@ -15,7 +15,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: Update PKGBUILDs
         run: |
-          bash pkgbuild/*/update.sh
+          for pkgname in atilo plasmafox purewriter
+          do
+          bash update.sh ${pkgname}
+          done
+          for pkgname in
+          do 
+          bash update.sh ${pkgname} v
+          done
           git config --local user.email "w1301511091@hotmail.com"
           git config --local user.name "oganesson0512"
           git add .
