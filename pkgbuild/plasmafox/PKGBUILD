@@ -1,0 +1,18 @@
+#This is maybe the most stupid PKGBUILD I've ever written...
+pkgname=plasmafox
+pkgver=78.4.1esr
+pkgrel=1
+pkgdesc="A fork of firefox aiming at pure and plasma intergrations"
+arch=("x86_64")
+url="https://github.com/torvic9/plasmafox/"
+license=("MPL2")
+depends=("mozilla-common" "gtk3" "mime-types" "startup-notification" "dbus-glib" "ffmpeg" "nss" "hunspell-en_US" "sqlite" "ttf-font" "libpulse" "libvpx" "icu" "libjpeg6-turbo" "pipewire")
+optdepends=('networkmanager' 'libnotify' 'pulseaudio' 'speech-dispatcher')
+source=("https://github.com/torvic9/plasmafox/releases/download/${pkgver}/plasmafox-${pkgver}-1-x86_64.pkg.tar.xz")
+md5sums=("SKIP")
+
+package () {
+cd $srcdir
+mkdir $pkgdir/usr
+cp -r ./usr/* $pkgdir/usr/
+}

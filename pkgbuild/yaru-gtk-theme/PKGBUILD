@@ -1,0 +1,19 @@
+pkgname=yaru-gtk-theme
+pkgver=20.10.1
+pkgrel=1
+pkgdesc="Ubuntu's default gtk theme"
+arch=("x86_64")
+url="https://github.com/Jannomag/Yaru-Colors/"
+license=("GPL3")
+depends=('gtk3' 'gdk-pixbuf2' 'gtk-engine-murrine')
+optdepends=('yaru-icon-theme')
+source=("https://github.com/Jannomag/Yaru-Colors/releases/download/${pkgver}/Complete_Yaru-Colors-v${pkgver}.tar.xz")
+md5sums=("SKIP")
+
+package () {
+cd $srcdir/
+mkdir -p $pkgdir/usr/share/themes
+cp -r ./Themes/* $pkgdir/usr/share/themes
+mkdir -p $pkgdir/usr/share/licenses/yaru-gtk-theme
+cp LICENSE.md $pkgdir/usr/share/licenses/yaru-gtk-theme/
+}
