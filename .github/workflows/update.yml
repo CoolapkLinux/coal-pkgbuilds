@@ -15,7 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Update PKGBUILDs
-        run: bash pkgbuild/*/update.sh
+        run: |
+          bash pkgbuild/*/update.sh
+          git add .
+          git commit -m "Update PKGBUILD" -a
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
