@@ -6,7 +6,7 @@ pkgver=$(cat pkgbuild/${pkgname}/PKGBUILD|grep pkgver=|awk -F\= '{print $2}')
 pkgonlinever=$(curl https://api.github.com/repos/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $4}')/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $5}')/releases/latest|grep tag_name|awk -F\" '{print $4}')
 case arg in
 v)
-  pkgonlinever="v${pkgonlinever}"
+  pkgonlinever=$(echo ${pkgonlinever}|sed 's/v//g')
 ::
 esac
 if [ ${pkgver} != ${pkgonlinever} ]; then
