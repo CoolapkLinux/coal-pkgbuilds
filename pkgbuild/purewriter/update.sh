@@ -1,3 +1,4 @@
+#/bin/bash
 #Update Pure Writer's PKGBUILD
 pkgname=purewriter
 pkgver=$(cat pkgbuild/${pkgname}/PKGBUILD|grep pkgver=|awk -F\= '{print $2}')
