@@ -1,6 +1,5 @@
 
 name: update
-id: update
 on:
   workflow_dispatch:
 
