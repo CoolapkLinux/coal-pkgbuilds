@@ -15,14 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Update PKGBUILDs
         run: |
-          for pkgname in atilo plasmafox purewriter yaru-gtk-theme yaru-icon-theme
-          do
-          bash update.sh ${pkgname}
-          done
-          for pkgname in netease-music-tui lazygit
-          do 
-          bash update.sh ${pkgname} v
-          done
+          update.sh
           git config --local user.email "w1301511091@hotmail.com"
           git config --local user.name "oganesson0512"
           git add .
