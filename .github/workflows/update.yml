@@ -20,6 +20,7 @@ jobs:
               pkgname=$1
               arg=$2
               if [ ${pkgname} != n ]; then
+              echo ${pkgname}
               pkgver=$(cat pkgbuild/${pkgname}/PKGBUILD|grep pkgver=|awk -F\= '{print $2}')
               pkgonlinever=$(curl https://api.github.com/repos/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $4}')/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $5}')/releases/latest|grep tag_name|awk -F\" '{print $4}')
               case arg in
