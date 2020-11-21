@@ -1,3 +1,4 @@
+#examine=v
 pkgname=netease-music-tui
 _pkgname=netease-cloud-music-tui
 pkgver=0.1.2
