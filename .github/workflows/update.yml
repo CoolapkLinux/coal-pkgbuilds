@@ -20,19 +20,13 @@ jobs:
               pkgname=$1
               arg=$2
               if [ ${arg} != n ]; then
-              echo ${pkgname} ${arg}
               pkgver=$(cat pkgbuild/${pkgname}/PKGBUILD|grep pkgver=|awk -F\= '{print $2}')
               pkgonlinever=$(curl https://api.github.com/repos/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $4}')/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $5}')/releases/latest|grep tag_name|awk -F\" '{print $4}')
-              case arg in
+              case ${arg} in
               v)
-                pkgonlinever=$(curl https://api.github.com/repos/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $4}')/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $5}')/releases/latest|grep tag_name|awk -F\" '{print $4}'|sed 's/v//g')
-                echo ${pkgonlinever}
-              ;;
-              *)
-                pkgonlinever=$(curl https://api.github.com/repos/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $4}')/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $5}')/releases/latest|grep tag_name|awk -F\" '{print $4}')
+                pkgonlinever=$(echo ${pkgonlinever}|sed 's/v//g')
               ;;
               esac
-              echo ${pkgonlinever}
               if [ ${pkgver} != ${pkgonlinever} ]; then
                 sed -i '/pkgver=/cpkgver='"${pkgonlinever}" pkgbuild/${pkgname}/PKGBUILD
                 echo "${pkgname}" >> need-update
