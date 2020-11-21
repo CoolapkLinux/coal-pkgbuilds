@@ -25,7 +25,7 @@ jobs:
               case arg in
               v)
                 pkgonlinever=$(echo ${pkgonlinever}|sed 's/v//g')
-              ::
+              ;;
               esac
               if [ ${pkgver} != ${pkgonlinever} ]; then
                 sed -i '/pkgver=/cpkgver='"${pkgonlinever}" pkgbuild/${pkgname}/PKGBUILD
