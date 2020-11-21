@@ -37,7 +37,7 @@ jobs:
           for pkgname in `ls -AF pkgbuild |grep '/$' | tr -d '/'`
           do
             examine_arg=$(cat pkgbuild/${pkgname}/PKGBUILD|grep \#examine=|awk -F\= '{print $2}')
-            update(${pkgname} ${examine_arg})
+            update ${pkgname} ${examine_arg}
           done
           git config --local user.email "w1301511091@hotmail.com"
           git config --local user.name "oganesson0512"
