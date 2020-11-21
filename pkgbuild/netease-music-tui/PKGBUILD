@@ -1,7 +1,7 @@
 #examine=v
 pkgname=netease-music-tui
 _pkgname=netease-cloud-music-tui
-pkgver=0.1.2
+pkgver=v0.1.2
 pkgrel=3
 pkgdesc='网易云音乐的命令行版'
 arch=('x86_64')
