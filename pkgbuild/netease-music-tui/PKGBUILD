@@ -7,8 +7,10 @@ arch=('x86_64')
 url='https://hub.fastgit.org/betta-cyber/netease-music-tui/'
 license=('MIT')
 provides=(netease-music-tui=${pkgver})
-source=("https://github.com/betta-cyber/netease-music-tui/releases/download/v${pkgver}/netease-music-tui-linux.tar.gz")
-md5sums=('SKIP')
+source=("https://github.com/betta-cyber/netease-music-tui/releases/download/v${pkgver}/netease-music-tui-linux.tar.gz" "netease-music-tui.install")
+md5sums=('SKIP' 'SKIP')
+install=netease-music-tui.install
+
 
 package() {
 mkdir -p $pkgdir/usr/bin/ $pkgdir/usr/share/netease-music-tui/
