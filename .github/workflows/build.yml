@@ -39,7 +39,9 @@ jobs:
       - name: Upload package
         id: upload
         run: |
-          #上面这行不行，mv和repo-add都要放在上面
+          #Alex edited to manage package list easily
+          rm -r coolapk-linux/docs/packages.md
+          cp packages.md coolapk-linux/docs/packages.md
           cd coolapk-linux
           bash ./fuck-gitee.sh
           git config --local user.email "2380087797@qq.com"
