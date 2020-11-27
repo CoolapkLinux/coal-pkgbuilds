@@ -1,4 +1,5 @@
 #This is maybe the most stupid PKGBUILD I've ever written...
+#examine=fuck
 pkgname=plasmafox
 pkgver=78.4.1esr
 pkgrel=1
