@@ -10,7 +10,4 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Archlinux
-        run: curl -L https://github.com/oganesson0512/github-actions-archlinux/raw/master/install.sh | sh
-      - name: Git Push
-        run: ls -al
+      - uses: oganesson0512/build-aur-action@master
