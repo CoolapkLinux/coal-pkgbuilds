@@ -13,4 +13,4 @@ jobs:
       - name: Install Archlinux
         run: curl -L https://github.com/zaoqi/github-actions-archlinux/raw/master/install.sh | sh
       - name: Git Push
-        ls -al
+        run: ls -al
