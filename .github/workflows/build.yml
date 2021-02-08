@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Archlinux
-        run: curl -L https://github.com/zaoqi/github-actions-archlinux/raw/master/install.sh | sh
+        run: curl -L https://github.com/oganesson0512/github-actions-archlinux/raw/master/install.sh | sh
       - name: Git Push
         run: ls -al
