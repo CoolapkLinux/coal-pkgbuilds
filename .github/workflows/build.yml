@@ -12,4 +12,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - uses: oganesson0512/build-aur-action@v1.1 
+    - name: Makepkg Build and Check
+      id: makepkg
+      uses: oganesson0512/pkgbuild-action@master
+    - name: Print Package Files
+      run: |
+        echo "Successfully created the following package archive"
+        echo "Package: ${{ steps.makepkg.outputs.pkgfile0 }}"
