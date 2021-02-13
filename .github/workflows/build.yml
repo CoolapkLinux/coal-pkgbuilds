@@ -19,11 +19,16 @@ jobs:
       run:  yes $'\n'|pacman -Syu base-devel
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Prepare user for pkgbuild
+      run:  |
+             useradd -m build
+             chown -R build ./*
+             su build
     - name: PkgBuild
       run:  |
-          for pkg in `cat need-update`
-          do
-            cd pkgbuild/"${pkg}"
-            makepkg --syncdeps
-            cd ../..
-          done
+             for pkg in `cat need-update`
+             do
+               cd pkgbuild/"${pkg}"
+               makepkg --syncdeps
+               cd ../..
+             done
