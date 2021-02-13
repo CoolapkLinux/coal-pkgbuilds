@@ -16,7 +16,7 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
     - name: Prepare base-devel
-      run:  yes $'\n'|pacman -Syu base-devel unzip p7zip busybox fuse
+      run:  yes $'\n'|pacman -Syu base-devel unzip p7zip busybox 
     - name: Checkout
       uses: actions/checkout@v2
     - name: Prepare user for pkgbuild
