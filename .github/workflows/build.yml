@@ -23,12 +23,20 @@ jobs:
       run:  |
              useradd -m build
              chown -R build ./*
+    - name: Prepare rclone
+      run:  |
+             curl https://rclone.org/install.sh | sudo bash
+             echo -e '[coolapklinux]\ntype = onedrive\ntoken = {{ONDRIVE_CONFIG}}\ndrive_id = 50b88ce1bd1622a5\ndrive_type = personal' >> ~/.config/rclone/rclone.conf
     - name: PkgBuild
       run:  |
              for pkg in `cat need-update`
              do
                cd pkgbuild/"${pkg}"
                su -c "makepkg --syncdeps" build
+               rclone copy coolapklinux:arch-repo/x86_64/coolapk-linux.* ./
+               repo-add ./coolapk-linux.db.tar.gz ./*.pkg.tar.zst
+               rclone copy *.pkg.tar.zst coolapklinux:arch-repo/x86_64/
+               rclone copy coolapk-linux.* coolapklinux:arch-repo/x86_64/
                cd ../..
              done
   rm-update:
