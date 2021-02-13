@@ -16,7 +16,7 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
     - name: Prepare base-devel
-      run:  echo all|pacman -Syu base-devel
+      run:  yes $'\n'|pacman -Syu base-devel
     - name: Checkout
       uses: actions/checkout@v2
     - name: PkgBuild
