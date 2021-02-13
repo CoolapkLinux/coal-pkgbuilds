@@ -23,12 +23,11 @@ jobs:
       run:  |
              useradd -m build
              chown -R build ./*
-             su build
     - name: PkgBuild
       run:  |
              for pkg in `cat need-update`
              do
                cd pkgbuild/"${pkg}"
-               makepkg --syncdeps
+               su -c "makepkg --syncdeps" build
                cd ../..
              done
