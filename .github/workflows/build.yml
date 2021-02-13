@@ -38,8 +38,14 @@ jobs:
                mkdir -p /mnt/onedrive
                rclone move coolapklinux:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
                repo-add ./coolapk-linux.db.tar.gz ./*.pkg.tar.zst
-               rclone move ./*.pkg.tar.zst coolapklinux:/arch-repo/x86_64/
-               rclone move ./coolapk-linux.* coolapklinux:/arch-repo/x86_64/
+               for f in `ls *.pkg.tar.zst`
+               do
+               rclone move ./${f} coolapklinux:/arch-repo/x86_64/
+               done
+               for f in `ls coolapk-linux*`
+               do
+               rclone move ./${f} coolapklinux:/arch-repo/x86_64/
+               done
                cd ../..
              done
   rm-update:
