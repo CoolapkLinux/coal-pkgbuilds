@@ -9,13 +9,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
+    - name: Prepare base-devel
+      run:  pacman -S base-devel
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Makepkg Build and Check
-      id: makepkg
-      uses: oganesson0512/pkgbuild-action@master
-    - name: Print Package Files
-      run: |
-        echo "Successfully created the following package archive"
-        echo "Package: ${{ steps.makepkg.outputs.pkgfile0 }}"
+    - name: PkgBuild
+      run:  |
+          for pkg in `cat need-update`
+          do
+            cd pkgbuild/"${pkg}"
+            makepkg --syncdeps
+            cd ../..
+          done
