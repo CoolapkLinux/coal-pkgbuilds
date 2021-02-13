@@ -35,11 +35,11 @@ jobs:
                cd pkgbuild/"${pkg}"
                su -c "makepkg --syncdeps" build
                rclone tree coolapklinux:
-               rclone copy coolapklinux:arch-repo/x86_64/coolapk-linux.* ./
+               rclone copy coolapklinux:/arch-repo/x86_64/coolapk-linux.* ./
                repo-add ./coolapk-linux.db.tar.gz ./*.pkg.tar.zst
-               rclone copy *.pkg.tar.zst coolapklinux:arch-repo/x86_64/
-               rclone copy coolapk-linux.* coolapklinux:arch-repo/x86_64/
-               rclone mkdir coolapklinux:finished
+               rclone copy ./*.pkg.tar.zst coolapklinux:/arch-repo/x86_64/
+               rclone copy ./coolapk-linux.* coolapklinux:/arch-repo/x86_64/
+               rclone mkdir coolapklinux:/finished
                cd ../..
              done
   rm-update:
