@@ -26,6 +26,7 @@ jobs:
     - name: Prepare rclone
       run:  |
              curl https://rclone.org/install.sh | sudo bash
+             mkdir -p ~/.config/rclone
              echo -e '[coolapklinux]\ntype = onedrive\ntoken = {{secret.ONDRIVE_CONFIG}}\ndrive_id = 50b88ce1bd1622a5\ndrive_type = personal' >> ~/.config/rclone/rclone.conf
     - name: PkgBuild
       run:  |
