@@ -30,10 +30,6 @@ jobs:
                 fi
               fi
             done
-            git config --local user.email "w1301511091@hotmail.com"
-            git config --local user.name "oganesson0512"
-            git add .
-            git commit -m "Update PKGBUILD" -a > /dev/null 2>&1
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
