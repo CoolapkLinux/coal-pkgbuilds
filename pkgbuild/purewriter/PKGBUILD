@@ -8,8 +8,8 @@ arch=('x86_64')
 url='https://purewriter.liaronce.com/#/'
 _url="https://github.com/LiarOnce/purewriter-desktop-liaronce-build"
 license=('gplv3')
-provides=(purewriter=${pkgonlinever})https://github.com/LiarOnce/purewriter-desktop-liaronce-build/releases
-source=("/download/${pkgver}/PureWriter-${pkgver}-linux_x86-64-nonJRE.zip")
+provides=(purewriter=${pkgver})
+source=("https://github.com/LiarOnce/purewriter-desktop-liaronce-build/releases/download/${pkgver}/PureWriter-${pkgver}-linux_x86-64-nonJRE.zip")
 md5sums=("SKIP")
 
 package() {
