@@ -17,28 +17,20 @@ jobs:
         run: |
           update()
             {
-              pkgname=$1
-              arg=$2
-              if [ ${arg} != n ]; then
-              pkgver=$(cat pkgbuild/${pkgname}/PKGBUILD|grep pkgver=|awk -F\= '{print $2}')
-              pkgonlinever=$(curl https://api.github.com/repos/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $4}')/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $5}')/releases/latest|grep tag_name|awk -F\" '{print $4}')
-              case ${arg} in
-              v)
-                pkgonlinever=$(echo ${pkgonlinever}|sed 's/v//g')
-              ;;
-              esac
-              if [ ${pkgver} != ${pkgonlinever} ]; then
-                sed -i '/pkgver=/cpkgver='"${pkgonlinever}" pkgbuild/${pkgname}/PKGBUILD
-                echo "${pkgname}" >> need-update
-              fi
-              fi
-              return 0
+              for pkg in `ls pkgbuild`
+              do
+                source pkgbuild/${pkg}/PKGBUILD
+                if [ "${pkgname}" != "proot-termux" ]
+                then
+                  pkgveronline=$(echo $(curl $(echo $url|sed -e 's/github.com/api.github.com\/repos/' -e 's/$/\/releases\/latest/')|grep tag_name)|sed  -e 's/tag_name//' -e 's/:\ //' -e 's/\"//g' -e 's/,//' -e 's/v//')
+                  if [ "${pkgver}" != "${pkgonlinever}" ]
+                  then
+                    sed -i 's/${pkgonlinever}/${pkgver}/g' pkgbuild/${pkg}/PKGBUILD
+                    echo ${pkg} >> need-update
+                  fi
+                fi
+              done
             }
-          for pkgname in `ls -AF pkgbuild |grep '/$' | tr -d '/'`
-          do
-            examine_arg=$(cat pkgbuild/${pkgname}/PKGBUILD|grep \#examine=|awk -F\= '{print $2}')
-            update ${pkgname} ${examine_arg}
-          done
           git config --local user.email "w1301511091@hotmail.com"
           git config --local user.name "oganesson0512"
           git add .
