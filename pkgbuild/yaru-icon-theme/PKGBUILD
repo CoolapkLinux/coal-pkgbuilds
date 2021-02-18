@@ -1,6 +1,6 @@
 #examine=fuck
 pkgname=yaru-icon-theme
-pkgver=
+pkgver=234567
 pkgrel=1
 pkgdesc="Ubuntu's default icon theme,tastes better with yaru-gtk-theme"
 arch=("x86_64")

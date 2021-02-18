@@ -2,7 +2,7 @@
 #PKGBUILD from TheInterestingSoul
 pkgname=atilo
 _origname=atilo
-pkgver=
+pkgver=00987656789
 pkgrel=1
 pkgdesc="A script to create linux container on termux (with Chinese translation)"
 arch=("any")
