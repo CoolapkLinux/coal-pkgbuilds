@@ -15,26 +15,23 @@ jobs:
       - uses: actions/checkout@v2
       - name: Update PKGBUILDs
         run: |
-          update()
-            {
-              for pkg in `ls pkgbuild`
-              do
-                source pkgbuild/${pkg}/PKGBUILD
-                if [ "${pkgname}" != "proot-termux" ]
+            for pkg in `ls pkgbuild`
+            do
+              source pkgbuild/${pkg}/PKGBUILD
+              if [ "${pkgname}" != "proot-termux" ]
+              then
+                pkgveronline=$(echo $(curl $(echo $url|sed -e 's/github.com/api.github.com\/repos/' -e 's/$/\/releases\/latest/')|grep tag_name)|sed  -e 's/tag_name//' -e 's/:\ //' -e 's/\"//g' -e 's/,//' -e 's/v//')
+                if [ "${pkgver}" != "${pkgonlinever}" ]
                 then
-                  pkgveronline=$(echo $(curl $(echo $url|sed -e 's/github.com/api.github.com\/repos/' -e 's/$/\/releases\/latest/')|grep tag_name)|sed  -e 's/tag_name//' -e 's/:\ //' -e 's/\"//g' -e 's/,//' -e 's/v//')
-                  if [ "${pkgver}" != "${pkgonlinever}" ]
-                  then
-                    sed -i 's/${pkgonlinever}/${pkgver}/g' pkgbuild/${pkg}/PKGBUILD
-                    echo ${pkg} >> need-update
-                  fi
+                  sed -i 's/${pkgonlinever}/${pkgver}/g' pkgbuild/${pkg}/PKGBUILD
+                  echo ${pkg} >> need-update
                 fi
-              done
-            }
-          git config --local user.email "w1301511091@hotmail.com"
-          git config --local user.name "oganesson0512"
-          git add .
-          git commit -m "Update PKGBUILD" -a > /dev/null 2>&1
+              fi
+            done
+            git config --local user.email "w1301511091@hotmail.com"
+            git config --local user.name "oganesson0512"
+            git add .
+            git commit -m "Update PKGBUILD" -a > /dev/null 2>&1
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
