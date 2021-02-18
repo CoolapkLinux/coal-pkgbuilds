@@ -1,6 +1,6 @@
 #examine=fuck
 pkgname=yaru-wallpapers
-pkgver=23456
+pkgver=
 pkgrel=1
 pkgdesc="Yaru's wallpapers"
 arch=("x86_64")

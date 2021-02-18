@@ -2,7 +2,7 @@
 #PKGBUILD from AUR
 #https://aur.archlinux.org/packages/debtap/
 pkgname=debtap
-pkgver=0234567
+pkgver=3.4
 pkgrel=1
 pkgdesc='A script to convert .deb packages to Arch Linux packages, focused on accuracy. Do not use it to convert packages that already exist on official repositories or can be built from AUR!'
 arch=('any')
