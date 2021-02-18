@@ -23,6 +23,7 @@ jobs:
       run:  |
              useradd -m build
              chown -R build ./*
+             echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
     - name: Prepare rclone
       run:  |
              curl https://rclone.org/install.sh | sudo bash
