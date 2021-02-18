@@ -1,6 +1,7 @@
 #examine=n
 #PKGBUILD from TheInterestingSoul
 pkgname=atilo
+_origname=atilo
 pkgver=2.1
 pkgrel=1
 pkgdesc="A script to create linux container on termux (with Chinese translation)"

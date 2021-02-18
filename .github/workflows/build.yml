@@ -35,7 +35,7 @@ jobs:
              for pkg in `cat need-update`
              do
                cd pkgbuild/"${pkg}"
-               su -c "makepkg --syncdeps" build
+               su -c "makepkg -d" build
                mkdir -p /mnt/onedrive
                rclone move coolapklinux:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
                repo-add ./coolapk-linux.db.tar.gz ./*.pkg.tar.zst
