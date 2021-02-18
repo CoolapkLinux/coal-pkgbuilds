@@ -23,7 +23,7 @@ jobs:
                 pkgveronline=$(echo $(curl $(echo $url|sed -e 's/github.com/api.github.com\/repos/' -e 's/$/\/releases\/latest/')|grep tag_name)|sed  -e 's/tag_name//' -e 's/:\ //' -e 's/\"//g' -e 's/,//' -e 's/v//')
                 if [ "${pkgver}" != "${pkgonlinever}" ]
                 then
-                  sed -i 's/${pkgonlinever}/${pkgver}/g' pkgbuild/${pkg}/PKGBUILD
+                  sed -i 's/${pkgver}/${pkgonlinever}/g' pkgbuild/${pkg}/PKGBUILD
                   echo ${pkg} >> need-update
                 fi
               fi
