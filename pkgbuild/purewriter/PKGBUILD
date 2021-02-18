@@ -1,7 +1,7 @@
 #examine=fuck
 pkgname=purewriter
 _pkgname=purewriter
-pkgver=234556543
+pkgver=
 pkgrel=2
 pkgdesc='PureWriter for Linux'
 arch=('x86_64')
