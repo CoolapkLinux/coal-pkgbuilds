@@ -20,7 +20,7 @@ jobs:
               source pkgbuild/${pkg}/PKGBUILD
               if [ "${pkgname}" != "proot-termux" ]
               then
-                pkgonlinever=$(echo $(curl $(echo $url|sed -e 's/github.com/api.github.com\/repos/' -e 's/$/\/releases\/latest/')|grep tag_name)|sed  -e 's/tag_name//' -e 's/:\ //' -e 's/\"//g' -e 's/,//' -e 's/v//')
+                pkgonlinever=$(echo $(curl $(echo $_url|sed -e 's/github.com/api.github.com\/repos/' -e 's/$/\/releases\/latest/')|grep tag_name)|sed  -e 's/tag_name//' -e 's/:\ //' -e 's/\"//g' -e 's/,//' -e 's/v//')
                 if [ "${pkgver}" != "${pkgonlinever}" ]
                 then
                   sed -i "s/${pkgver}/${pkgonlinever}/g" pkgbuild/${pkg}/PKGBUILD
