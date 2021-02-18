@@ -8,7 +8,7 @@ url="https://github.com/Jannomag/Yaru-Colors/"
 license=("GPL3")
 depends=('gtk3' 'gdk-pixbuf2' 'gtk-engine-murrine')
 optdepends=('yaru-icon-theme')
-source=("https://github.com/Jannomag/Yaru-Colors/releases/download/${pkgver}/Complete_Yaru-Colors-v${pkgver}.tar.xz")
+source=("https://github.com/Jannomag/Yaru-Colors/releases/download/${pkgonlinever}/Complete_Yaru-Colors-v${pkgonlinever}.tar.xz")
 md5sums=("SKIP")
 
 package () {

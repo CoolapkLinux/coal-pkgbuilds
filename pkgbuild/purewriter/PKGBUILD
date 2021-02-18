@@ -7,8 +7,8 @@ pkgdesc='PureWriter for Linux'
 arch=('x86_64')
 url='https://purewriter.liaronce.com/#/'
 license=('gplv3')
-provides=(purewriter=${pkgver})
-source=("https://github.com/LiarOnce/purewriter-desktop-liaronce-build/releases/download/${pkgver}/PureWriter-${pkgver}-linux_x86-64-nonJRE.zip")
+provides=(purewriter=${pkgonlinever})
+source=("https://github.com/LiarOnce/purewriter-desktop-liaronce-build/releases/download/${pkgonlinever}/PureWriter-${pkgonlinever}-linux_x86-64-nonJRE.zip")
 md5sums=("SKIP")
 
 package() {
