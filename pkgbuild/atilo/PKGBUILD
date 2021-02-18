@@ -2,7 +2,7 @@
 #PKGBUILD from TheInterestingSoul
 pkgname=atilo
 _origname=atilo
-pkgver=2.1
+pkgver=
 pkgrel=1
 pkgdesc="A script to create linux container on termux (with Chinese translation)"
 arch=("any")
@@ -24,7 +24,7 @@ depends=('proot'
 conflicts=('atilo')
 provides=('atilo')
 source=("https://github.com/YadominJinta/atilo/archive/${pkgver}.zip")
-md5sums=('6fb822a1aca4457df0ac900c30e57f98')
+md5sums=('6fb82aca4457df0ac900c30e57f98')
 
 package() {
 	cd "$srcdir/$_origname-$pkgver/CN"
