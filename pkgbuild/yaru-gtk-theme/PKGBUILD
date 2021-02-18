@@ -1,6 +1,6 @@
 #examine=fuck
 pkgname=yaru-gtk-theme
-pkgver=
+pkgver=23453456
 pkgrel=1
 pkgdesc="Ubuntu's default gtk theme"
 arch=("x86_64")

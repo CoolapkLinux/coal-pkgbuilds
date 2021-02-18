@@ -1,7 +1,7 @@
 #This is maybe the most stupid PKGBUILD I've ever written...
 #examine=fuck
 pkgname=plasmafox
-pkgver=
+pkgver=3434343
 pkgrel=1
 pkgdesc="A fork of firefox aiming at pure and plasma intergrations"
 arch=("x86_64")
