@@ -25,7 +25,7 @@ depends=('proot'
 conflicts=('atilo')
 provides=('atilo')
 source=("https://github.com/YadominJinta/atilo/archive/${pkgver}.zip")
-md5sums=('6fb82aca4457df0ac900c30e57f98')
+md5sums=('SKIP')
 
 package() {
 	cd "$srcdir/$_origname-$pkgver/CN"
