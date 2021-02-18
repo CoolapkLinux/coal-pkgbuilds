@@ -22,7 +22,7 @@ depends=('proot'
          )
 conflicts=('atilo')
 provides=('atilo')
-source=("https://github.com/YadominJinta/atilo/archive/${pkgonlinever}.zip")
+source=("https://github.com/YadominJinta/atilo/archive/${pkgver}.zip")
 md5sums=('6fb822a1aca4457df0ac900c30e57f98')
 
 package() {
