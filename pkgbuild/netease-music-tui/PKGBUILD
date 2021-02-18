@@ -1,11 +1,12 @@
 #examine=v
 pkgname=netease-music-tui
 _pkgname=netease-cloud-music-tui
-pkgver=
+pkgver=2345634567
 pkgrel=3
 pkgdesc='网易云音乐的命令行版'
 arch=('x86_64')
-url='https://hub.fastgit.org/betta-cyber/netease-music-tui/'
+url='https://github.com/betta-cyber/netease-music-tui'
+_url='https://github.com/betta-cyber/netease-music-tui'
 license=('MIT')
 provides=(netease-music-tui=${pkgver})
 source=("https://github.com/betta-cyber/netease-music-tui/releases/download/v${pkgver}/netease-music-tui-linux.tar.gz" "netease-music-tui.install")

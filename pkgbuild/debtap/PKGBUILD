@@ -9,6 +9,7 @@ arch=('any')
 license=('GPL2')
 depends=('bash' 'binutils' 'pkgfile' 'fakeroot')
 url="https://github.com/helixarch/debtap"
+_url="https://github.com/helixarch/debtap"
 source=("$pkgname-$pkgver.tar.gz::https://github.com/helixarch/debtap/archive/$pkgver.tar.gz"
         "debtap.install")
 
