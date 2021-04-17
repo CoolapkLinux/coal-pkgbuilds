@@ -38,7 +38,7 @@ jobs:
                su -c "makepkg -d" build
                echo "Build finished"
                mkdir -p /mnt/onedrive
-               rclone move coolapklinux:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
+               rclone move one:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
                repo-add ./coolapk-linux.db.tar.gz ./*.pkg.tar.zst
                rm -r coolapk-linux.db coolapk-linux.files
                cp coolapk-linux.db.tar.gz coolapk-linux.db
