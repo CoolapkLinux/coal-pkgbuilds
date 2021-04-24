@@ -35,6 +35,7 @@ jobs:
              do
                cd pkgbuild/"${pkg}"
                if [ -f "./aur" ];then
+                  su -c "chmod -R 755 ." build
                   git clone https://aur.archlinux.org/${pkg}.git
                   cd ./${pkg} 
                   sh ../aur
