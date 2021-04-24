@@ -35,7 +35,8 @@ jobs:
              do
                cd pkgbuild/"${pkg}"
                if [ -f "./aur" ];then
-                  su -c "git clone https://aur.archlinux.org/${pkg}.git && cd ./${pkg} && sh ../aur && makepkg -d && cd .." build
+                  su -c "git clone https://aur.archlinux.org/${pkg}.git && cd ./${pkg} && sh ../aur && makepkg -d" build
+                  cd ./${pkg}
                elif [ -f "./PKGBUILD" ];then
                   su -c "makepkg -d" build
                   echo "Build finished"
