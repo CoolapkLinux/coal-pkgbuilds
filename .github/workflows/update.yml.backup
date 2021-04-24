@@ -1,0 +1,50 @@
+
+name: update
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  update:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update PKGBUILDs
+        run: |
+          update()
+            {
+              pkgname=$1
+              arg=$2
+              if [ ${arg} != n ]; then
+              pkgver=$(cat pkgbuild/${pkgname}/PKGBUILD|grep pkgver=|awk -F\= '{print $2}')
+              pkgonlinever=$(curl https://api.github.com/repos/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $4}')/$(cat pkgbuild/${pkgname}/PKGBUILD|grep source=|awk -F\/ '{print $5}')/releases/latest|grep tag_name|awk -F\" '{print $4}')
+              case ${arg} in
+              v)
+                pkgonlinever=$(echo ${pkgonlinever}|sed 's/v//g')
+              ;;
+              esac
+              if [ ${pkgver} != ${pkgonlinever} ]; then
+                sed -i '/pkgver=/cpkgver='"${pkgonlinever}" pkgbuild/${pkgname}/PKGBUILD
+                echo "${pkgname}" >> need-update
+              fi
+              fi
+              return 0
+            }
+          for pkgname in `ls -AF pkgbuild |grep '/$' | tr -d '/'`
+          do
+            examine_arg=$(cat pkgbuild/${pkgname}/PKGBUILD|grep \#examine=|awk -F\= '{print $2}')
+            update ${pkgname} ${examine_arg}
+          done
+          git config --local user.email "w1301511091@hotmail.com"
+          git config --local user.name "oganesson0512"
+          git add .
+          git commit -m "Update PKGBUILD" -a > /dev/null 2>&1
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

@@ -16,7 +16,7 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
     - name: Prepare base-devel
-      run:  yes $'\n'|pacman -Syu base-devel unzip p7zip busybox 
+      run:  yes $'\n'|pacman -Syu base-devel unzip p7zip busybox rclone git
     - name: Checkout
       uses: actions/checkout@v2
     - name: Prepare user for pkgbuild
@@ -26,28 +26,36 @@ jobs:
              echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
     - name: Prepare rclone
       run:  |
-             curl https://rclone.org/install.sh | sudo bash
-             mkdir -p ~/.config/rclone
              echo -e '${{secrets.ONEDRIVE_CONFIG}}' >> ~/.config/rclone/rclone.conf
-             
     - name: PkgBuild
       run:  |
              for pkg in `cat need-update`
              do
                cd pkgbuild/"${pkg}"
-               su -c "makepkg -d" build
-               echo "Build finished"
+               if [ -f "./aur" ];then
+                  git clone https://aur.archlinux.org/${pkg}.git
+                  cd ./${pkg} 
+                  sh ../aur
+                  su -c "makepkg -d" build
+                  mv *.pkg.tar.zst ../
+                  cd ..
+               elif [ -f "./PKGBUILD" ];then
+                  su -c "makepkg -d" build
+                  echo "Build finished"
+               else
+                  echo "Skipping:No build files provided."
+               fi
                mkdir -p /mnt/onedrive
                rclone move one:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
-               repo-add ./coolapk-linux.db.tar.gz ./*.pkg.tar.zst
-               rm -r coolapk-linux.db coolapk-linux.files
-               cp coolapk-linux.db.tar.gz coolapk-linux.db
-               cp coolapk-linux.files.tar.gz coolapk-linux.files
+               repo-add ./coal.db.tar.gz ./*.pkg.tar.zst
+               rm -r coal.db coal.files
+               cp coal.db.tar.gz coal.db
+               cp coal.files.tar.gz coal.files
                for p in `ls *.pkg.tar.zst`
                do
                  rclone move ./${p} one:/arch-repo/x86_64/
                done
-               for f in `ls coolapk-linux*`
+               for f in `ls coal*`
                do
                  rclone move ./${f} one:/arch-repo/x86_64/
                done
