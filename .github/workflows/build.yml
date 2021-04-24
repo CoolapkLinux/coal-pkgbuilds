@@ -15,7 +15,7 @@ jobs:
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
-    - name: Prepare base-devel
+    - name: Prepare environment
       run:  yes $'\n'|pacman -Syu base-devel unzip p7zip busybox rclone git
     - name: Checkout
       uses: actions/checkout@v2
@@ -26,7 +26,8 @@ jobs:
              echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
     - name: Prepare rclone
       run:  |
-             mkdir -p ~./.config/rclone/
+             mkdir -p ~/.config/rclone/
+             touch ~/.config/rclone/rclone.conf
              echo -e '${{secrets.ONEDRIVE_CONFIG}}' >> ~/.config/rclone/rclone.conf
     - name: PkgBuild
       run:  |
@@ -34,12 +35,8 @@ jobs:
              do
                cd pkgbuild/"${pkg}"
                if [ -f "./aur" ];then
-                  git clone https://aur.archlinux.org/${pkg}.git
-                  cd ./${pkg} 
-                  sh ../aur
-                  su -c "makepkg -d" build
-                  mv *.pkg.tar.zst ../
-                  cd ..
+                  su -c "git clone https://aur.archlinux.org/${pkg}.git && cd ./${pkg} && sh ../aur && makepkg -d" build
+                  cd ./${pkg}
                elif [ -f "./PKGBUILD" ];then
                   su -c "makepkg -d" build
                   echo "Build finished"
