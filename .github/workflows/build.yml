@@ -15,7 +15,7 @@ jobs:
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
-    - name: Prepare base-devel
+    - name: Prepare environment
       run:  yes $'\n'|pacman -Syu base-devel unzip p7zip busybox rclone git
     - name: Checkout
       uses: actions/checkout@v2
@@ -26,7 +26,8 @@ jobs:
              echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
     - name: Prepare rclone
       run:  |
-             mkdir -p ~./.config/rclone/
+             mkdir -p ~/.config/rclone/
+             touch ~/.config/rclone/rclone.conf
              echo -e '${{secrets.ONEDRIVE_CONFIG}}' >> ~/.config/rclone/rclone.conf
     - name: PkgBuild
       run:  |
