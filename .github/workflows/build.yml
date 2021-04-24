@@ -47,19 +47,39 @@ jobs:
                   echo "Skipping:No build files provided."
                fi
                mkdir -p /mnt/onedrive
-               rclone move one:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
-               repo-add ./coal.db.tar.gz ./*.pkg.tar.zst
-               rm -r coal.db coal.files
-               cp coal.db.tar.gz coal.db
-               cp coal.files.tar.gz coal.files
-               for p in `ls *.pkg.tar.zst`
-               do
-                 rclone move ./${p} one:/arch-repo/x86_64/
-               done
-               for f in `ls coal*`
-               do
-                 rclone move ./${f} one:/arch-repo/x86_64/
-               done
+               if [ -f "*.x86_64.pkg.tar.zst" ];then
+                  rclone move one:/arch-repo/x86_64/${pkg}-*.pkg.tar.zst one:/arch-archive/
+                  rclone move one:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
+                  repo-add ./coal.db.tar.gz ./*.pkg.tar.zst
+                  rm -r coal.db coal.files
+                  cp coal.db.tar.gz coal.db
+                  cp coal.files.tar.gz coal.files
+                  for p in `ls *.pkg.tar.zst`
+                  do
+                      rclone move ./${p} one:/arch-repo/x86_64/
+                  done
+                  for f in `ls coal*`
+                  do
+                      rclone move ./${f} one:/arch-repo/x86_64/
+                  done
+               elif [ -f "*.any.pkg.tar.zst" ];then
+                  rclone move one:/arch-repo/any/${pkg}-*.pkg.tar.zst one:/arch-archive/
+                  rclone move one:/arch-repo/any/ ./ --exclude "*.tar.zst"
+                  repo-add ./coal-any.db.tar.gz ./*.pkg.tar.zst
+                  rm -r coal-any.db coal-any.files
+                  cp coal-any.db.tar.gz coal-any.db
+                  cp coal-any.files.tar.gz coal-any.files
+                  for p in `ls *.pkg.tar.zst`
+                  do
+                      rclone move ./${p} one:/arch-repo/any/
+                  done
+                  for f in `ls coal-any*`
+                  do
+                      rclone move ./${f} one:/arch-repo/any/
+                  done
+               else
+                  echo "Skipping:No packages found."
+               fi
                echo "Upload finished"
                cd ../..
              done
