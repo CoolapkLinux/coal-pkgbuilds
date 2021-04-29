@@ -44,7 +44,7 @@ jobs:
                   echo "Skipping:No build files provided."
                fi
                mkdir -p /mnt/onedrive
-               if [[ -f *".x86_64.pkg.tar.zst" ]];then
+               if [[ `ls` == *".x86_64.pkg.tar.zst"* ]];then
                   rclone move one:/arch-repo/x86_64/${pkg}-*.pkg.tar.zst one:/arch-archive/
                   rclone move one:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
                   repo-add ./coal.db.tar.gz ./*.pkg.tar.zst
@@ -59,7 +59,7 @@ jobs:
                   do
                       rclone move ./${f} one:/arch-repo/x86_64/
                   done
-               elif [[ -f *".any.pkg.tar.zst" ]];then
+               elif [[ `ls` == *".any.pkg.tar.zst"* ]];then
                   rclone move one:/arch-repo/any/${pkg}-*.pkg.tar.zst one:/arch-archive/
                   rclone move one:/arch-repo/any/ ./ --exclude "*.tar.zst"
                   repo-add ./coal-any.db.tar.gz ./*.pkg.tar.zst
