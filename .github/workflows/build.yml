@@ -45,7 +45,7 @@ jobs:
                fi
                mkdir -p /mnt/onedrive
                if [[ `ls` == *"-x86_64.pkg.tar.zst"* ]];then
-                  rclone move one:/arch-repo/x86_64/${pkg}-*.pkg.tar.zst one:/arch-archive/
+                  rclone move one:/arch-repo/x86_64/ one:/arch-archive/  --include "${pkg}-*.pkg.tar.zst"
                   rclone move one:/arch-repo/x86_64/ ./ --exclude "*.tar.zst"
                   repo-add ./coal.db.tar.gz ./*.pkg.tar.zst
                   rm -r coal.db coal.files
@@ -60,7 +60,7 @@ jobs:
                       rclone move ./${f} one:/arch-repo/x86_64/
                   done
                elif [[ `ls` == *"-any.pkg.tar.zst"* ]];then
-                  rclone move one:/arch-repo/any/${pkg}-*.pkg.tar.zst one:/arch-archive/
+                  rclone move one:/arch-repo/any/ one:/arch-archive/ --include "${pkg}-*.pkg.tar.zst"
                   rclone move one:/arch-repo/any/ ./ --exclude "*.tar.zst"
                   repo-add ./coal-any.db.tar.gz ./*.pkg.tar.zst
                   rm -r coal-any.db coal-any.files
