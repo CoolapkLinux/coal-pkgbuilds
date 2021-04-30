@@ -23,14 +23,18 @@ jobs:
               if [ -f no-update ];then
                 echo "ignore update of ${pkg}"
               elif [ -f ./aur ];then
-                localpkgver=${$(cat ./aur | grep "localpkgver")#*"localpkgver="}
+                if [ `grep -c "localpkgver=" aur` -ne '0' ];then
+                  localpkgver=${$(cat ./aur | grep "localpkgver")#*"localpkgver="}
+                else
+                  localpkgver="aha!"
+                fi
                 if [ -f update.sh ];then
                   aurpkgver=$(bash update.sh)
                 else
                   aurpkgver=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=${pkg}" | jq -r '.results|.[]|.Version')
                 fi
                 if [${localpkgver} != ${aurpkgver}];then
-                  sed -i '/localpkgver=${localpkgver}/d' ./aur
+                  (sed -i '/localpkgver=${localpkgver}/d' ./aur) 1>/dev/null
                   echo "localpkgver=${aurpkgver}" >> ./aur
                   echo ${pkg} >> ../../need-update
                 fi
