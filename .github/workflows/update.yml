@@ -24,7 +24,7 @@ jobs:
                 echo "ignore update of ${pkg}"
               elif [ -f ./aur ];then
                 if [ `grep -c "localpkgver=" aur` -ne '0' ];then
-                  localpkgver=${$(cat ./aur | grep "localpkgver")#*"localpkgver="}
+                  export `cat aur | grep "localpkgver"`
                 else
                   localpkgver="aha!"
                 fi
@@ -39,7 +39,8 @@ jobs:
                   echo ${pkg} >> ../../need-update
                 fi
               elif [ -f ./PKGBUILD ];then
-                source PKGBUILD
+                export `cat PKGBUILD | grep pkgver`
+                export `cat PKGBUILD | grep _url`
                 if [ -f update.sh ];then
                   pkgonlinever=$(bash update.sh)
                 elif [ `grep -c "source=(\"https://github.com/" PKGBUILD` -ne '0' ];then              
