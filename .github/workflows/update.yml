@@ -30,7 +30,7 @@ jobs:
                 if [ -f update.sh ];then
                   aurpkgver=$(bash update.sh)
                 else
-                  aurpkgver=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=microsoft-edge-dev-bin" | jq -r '.results|.[]|.Version')
+                  aurpkgver=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=${pkg}" | jq -r '.results|.[]|.Version')
                 fi
                 if [${localpkgver} != ${aurpkgver}];then
                   sed -i '/localpkgver=${localpkgver}/d' ./aur
