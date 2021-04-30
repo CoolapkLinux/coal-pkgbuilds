@@ -39,8 +39,7 @@ jobs:
                   echo ${pkg} >> ../../need-update
                 fi
               elif [ -f ./PKGBUILD ];then
-                export `cat PKGBUILD | grep pkgver`
-                export `cat PKGBUILD | grep _url`
+                source PKGBUILD
                 if [ -f update.sh ];then
                   pkgonlinever=$(bash update.sh)
                 elif [ `grep -c "source=(\"https://github.com/" PKGBUILD` -ne '0' ];then              
