@@ -15,18 +15,42 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
+      - name: prepare dependencies
+        run: |
+            sudo apt install jq
       - name: Update PKGBUILDs
         run: |
             for pkg in `ls pkgbuild`
             do
-              source pkgbuild/${pkg}/PKGBUILD
-              if [ "${pkgname}" != "proot-termux" ]
-              then
-                pkgonlinever=$(echo $(curl $(echo $_url|sed -e 's/github.com/api.github.com\/repos/' -e 's/$/\/releases\/latest/')|grep tag_name)|sed  -e 's/tag_name//' -e 's/:\ //' -e 's/\"//g' -e 's/,//' -e 's/v//')
-                if [ "${pkgver}" != "${pkgonlinever}" ]
-                then
+              cd pkgbuild/${pkg}/
+              if [ -f no-update ];then
+                echo "ignore update of ${pkg}"
+              elif [ -f ./aur];then
+                localpkgver=${$(cat ./aur | grep "localpkgver")#*"localpkgver="}
+                if [ -f update.sh ];then
+                  aurpkgver=$(bash update.sh)
+                else
+                  aurpkgver=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=microsoft-edge-dev-bin" | jq -r '.results|.[]|.Version')
+                fi
+                if [${localpkgver} != ${aurpkgver}];then
+                  sed -i '/localpkgver=${localpkgver}/d' ./aur
+                  echo "localpkgver=${aurpkgver}" >> ./aur
+                  echo ${pkg} >> ../../need-update
+                fi
+              elif [ -f ./PKGBUILD ];then
+                source PKGBUILD
+                if [ -f update.sh ];then
+                  pkgonlinever=$(bash update.sh)
+                elif [ `grep -c "source=(\"https://github.com/" PKGBUILD` -ne '0' ];then              
+                  pkgonlinever=$(curl $(echo $_url|sed -e 's/github.com/api.github.com\/repos/' -e 's/$/\/releases\/latest/') | jq -r '.tag_name')
+                else
+                  echo "can't update ${pkg};uncertain PKGBUILD"
+                fi
+                if [ "${pkgver}" != "${pkgonlinever}" ];then
                   sed -i "s/${pkgver}/${pkgonlinever}/g" pkgbuild/${pkg}/PKGBUILD
                   echo ${pkg} >> need-update
+                else
+                  echo "${pkg} is latest"
                 fi
               fi
             done
