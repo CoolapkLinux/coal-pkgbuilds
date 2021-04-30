@@ -15,17 +15,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
-      - name: prepare dependencies
-        run: |
-            sudo apt install jq
       - name: Update PKGBUILDs
         run: |
             for pkg in `ls pkgbuild`
             do
-              cd pkgbuild/${pkg}/
+              cd ~/work/coal-pkgbuilds/coal-pkgbuilds/pkgbuild/${pkg}/
               if [ -f no-update ];then
                 echo "ignore update of ${pkg}"
-              elif [ -f ./aur];then
+              elif [ -f ./aur ];then
                 localpkgver=${$(cat ./aur | grep "localpkgver")#*"localpkgver="}
                 if [ -f update.sh ];then
                   aurpkgver=$(bash update.sh)
