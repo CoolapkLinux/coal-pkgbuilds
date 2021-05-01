@@ -32,6 +32,10 @@ jobs:
                 if [ -f update.sh ];then
                   aurpkgver=$(bash update.sh)
                 else
+                if [ ${pkg: 0-4} == "-git"];then
+                  remote=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=${pkg}" | jq -r '.results|.[]|.URL')
+                  aurpkgver=$(git ls-remote ${remote}.git --count HEAD)
+                else
                   aurpkgver=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=${pkg}" | jq -r '.results|.[]|.Version')
                 fi
                 if [ ${localpkgver} != ${aurpkgver} ];then
