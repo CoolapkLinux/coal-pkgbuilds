@@ -16,7 +16,7 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
     - name: Prepare environment
-      run:  yes $'\n'|pacman -Syu base-devel unzip tree p7zip busybox rclone git
+      run:  yes $'\n'|pacman -Syu base-devel unzip p7zip busybox rclone git
     - name: Checkout
       uses: actions/checkout@v2
     - name: Prepare user for pkgbuild
@@ -29,15 +29,11 @@ jobs:
              mkdir -p ~/.config/rclone/
              touch ~/.config/rclone/rclone.conf
              echo -e '${{secrets.ONEDRIVE_CONFIG}}' >> ~/.config/rclone/rclone.conf
-             tree ~
     - name: PkgBuild
       run:  |
-             pwd
-             tree
              for pkg in `cat need-update`
              do
-               cd ~/pkgbuild/"${pkg}"/000
-               pwd
+               cd /w_/coal-pkgbuilds/coal-pkgbuilds/pkgbuild/"${pkg}"/
                if [ -f "./aur" ];then
                   su -c "git clone https://aur.archlinux.org/${pkg}.git && cd ./${pkg} && sh ../aur && makepkg -d" build
                   cd ./${pkg}
