@@ -16,7 +16,7 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
     - name: Prepare environment
-      run:  yes $'\n'|pacman -Syu base-devel unzip p7zip busybox rclone git
+      run:  yes $'\n'|pacman -Syu base-devel tree unzip p7zip busybox rclone git
     - name: Checkout
       uses: actions/checkout@v2
     - name: Prepare user for pkgbuild
@@ -29,6 +29,7 @@ jobs:
              mkdir -p ~/.config/rclone/
              touch ~/.config/rclone/rclone.conf
              echo -e '${{secrets.ONEDRIVE_CONFIG}}' >> ~/.config/rclone/rclone.conf
+             tree
     - name: PkgBuild
       run:  |
              for pkg in `cat need-update`
