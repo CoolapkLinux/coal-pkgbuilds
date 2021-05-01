@@ -32,8 +32,11 @@ jobs:
              tree ~
     - name: PkgBuild
       run:  |
+             pwd
+             tree
              for pkg in `cat need-update`
-               cd ~/pkgbuild/"${pkg}"
+             do
+               cd ~/pkgbuild/"${pkg}"/000
                pwd
                if [ -f "./aur" ];then
                   su -c "git clone https://aur.archlinux.org/${pkg}.git && cd ./${pkg} && sh ../aur && makepkg -d" build
