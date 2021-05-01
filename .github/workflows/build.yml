@@ -33,7 +33,8 @@ jobs:
       run:  |
              for pkg in `cat need-update`
              do
-               cd ~/work/coal-pkgbuilds/coal-pkgbuilds/pkgbuild/"${pkg}"
+               cd ~/coal-pkgbuilds/pkgbuild/"${pkg}"
+               pwd
                if [ -f "./aur" ];then
                   su -c "git clone https://aur.archlinux.org/${pkg}.git && cd ./${pkg} && sh ../aur && makepkg -d" build
                   cd ./${pkg}
@@ -78,7 +79,6 @@ jobs:
                   echo "Skipping:No packages found."
                fi
                echo "Upload finished"
-               cd ../..
              done
   rm-update:
     runs-on: ubuntu-latest
