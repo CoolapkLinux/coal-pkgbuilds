@@ -50,13 +50,20 @@ jobs:
                 fi
                 if [ "${pkgver}" != "${pkgonlinever}" ];then
                   sed -i "s/${pkgver}/${pkgonlinever}/g" PKGBUILD
-                  echo ${pkg} >> need-update
+                  echo ${pkg} >> ../../need-update
                 else
                   echo "${pkg} is latest"
                 fi
               fi
             done
-      - name: Push changes
+      - name: commit changes
+        run: |
+          git stage .
+          git config --global user.name "oganessonbot"
+          git config --global user.email "w1301511091@hotmail.com"
+          git commit -m "atomatic update"
+      - name: Push changesfiles_mulu 
+
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
