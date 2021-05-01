@@ -49,7 +49,7 @@ jobs:
                   echo "can't update ${pkg};uncertain PKGBUILD"
                 fi
                 if [ "${pkgver}" != "${pkgonlinever}" ];then
-                  sed -i "s/${pkgver}/${pkgonlinever}/g" pkgbuild/${pkg}/PKGBUILD
+                  sed -i "s/${pkgver}/${pkgonlinever}/g" PKGBUILD
                   echo ${pkg} >> need-update
                 else
                   echo "${pkg} is latest"
