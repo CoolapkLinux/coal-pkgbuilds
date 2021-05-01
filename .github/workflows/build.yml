@@ -33,7 +33,7 @@ jobs:
       run:  |
              for pkg in `cat need-update`
              do
-               cd pkgbuild/"${pkg}"
+               cd ~/work/coal-pkgbuilds/coal-pkgbuilds/pkgbuild/"${pkg}"
                if [ -f "./aur" ];then
                   su -c "git clone https://aur.archlinux.org/${pkg}.git && cd ./${pkg} && sh ../aur && makepkg -d" build
                   cd ./${pkg}
