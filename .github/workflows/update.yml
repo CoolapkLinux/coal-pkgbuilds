@@ -32,11 +32,12 @@ jobs:
                 if [ -f update.sh ];then
                   aurpkgver=$(bash update.sh)
                 else
-                if [ ${pkg: 0-4} == "-git"];then
-                  remote=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=${pkg}" | jq -r '.results|.[]|.URL')
-                  aurpkgver=$(git ls-remote ${remote}.git --count HEAD)
-                else
-                  aurpkgver=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=${pkg}" | jq -r '.results|.[]|.Version')
+                  if [ ${pkg: 0-4} == "-git"];then
+                    remote=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=${pkg}" | jq -r '.results|.[]|.URL')
+                    aurpkgver=$(git ls-remote ${remote}.git --count HEAD)
+                  else
+                    aurpkgver=$(curl "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=${pkg}" | jq -r '.results|.[]|.Version')
+                  fi
                 fi
                 if [ ${localpkgver} != ${aurpkgver} ];then
                   (sed -i '/localpkgver=${localpkgver}/d' ./aur) 1>/dev/null
